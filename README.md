@@ -11,3 +11,4 @@ TODO: инструкции для запуска проекта локально
 
 ## Contributors
 - [Nikita](https://github.com/gaikanomer9)
+- [Andrey Vostrikov](https://github.com/vavsar)
