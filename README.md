@@ -10,4 +10,4 @@ TODO: добавить инструкции по работе с Pull Requests
 TODO: инструкции для запуска проекта локально
 
 ## Contributors
-- [Nikita Zavyalov](https://github.com/gaikanomer9)
+- [Nikita](https://github.com/gaikanomer9)
