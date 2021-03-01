@@ -17,3 +17,4 @@ TODO: инструкции для запуска проекта локально
 - [Igor Markin](https://github.com/igor-markin)
 - [Andrey Vostrikov](https://github.com/vavsar)
 - [Yaroslav](https://github.com/zzstop)
+- [LeushElena](https://github.com/LeushElena)
