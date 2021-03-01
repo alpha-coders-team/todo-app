@@ -18,3 +18,4 @@ TODO: инструкции для запуска проекта локально
 - [Andrey Vostrikov](https://github.com/vavsar)
 - [Yaroslav](https://github.com/zzstop)
 - [LeushElena](https://github.com/LeushElena)
+- [Angelina](https://github.com/myagkova)
