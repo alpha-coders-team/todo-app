@@ -16,9 +16,25 @@ TODO: несколько слов о проекте
 $ git clone https://github.com/alpha-coders-team/todo-app.git
 ```
 
+**Переходим в папку приложения:**
+```bash
+$ cd todo-app/
+```
+
 **Создаем виртуальное окружение:**
 ```bash
 $ python -m venv venv
+```
+
+**Запускаем виртуальное окружение:**
+
+(Для пользователей Windows)
+```bash
+$ source venv/Scripts/activate
+```
+(Для пользователей Linux)
+```bash
+$ source venv/bin/activate
 ```
 
 **Устанавливаем зависимости:**
