@@ -11,27 +11,31 @@ TODO: несколько слов о проекте
 
 
 ## Локальный setup
-Клонируем репозиторий себе на компьютер:
-
+**Клонируем репозиторий себе на компьютер:**
+```bash
 $ git clone https://github.com/alpha-coders-team/todo-app.git
+```
 
-Создаем виртуальное окружение:
-
+**Создаем виртуальное окружение:**
+```bash
 $ python -m venv venv
+```
 
-Устанавливаем зависимости:
-
+**Устанавливаем зависимости:**
+```bash
 $ pip install -r requirements.txt
+```
 
-Применяем миграции:
-
-$ python manage.py makemigrations 
-
+**Применяем миграции:**
+```bash
+$ python manage.py makemigrations
 $ python manage.py migrate
+```
 
-Запускаем локальный сервер джанго:
-
+**Запускаем локальный сервер джанго:**
+```bash
 $ python manage.py runserver
+```
 
 
 ## Contributors
