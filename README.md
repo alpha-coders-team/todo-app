@@ -61,3 +61,4 @@ $ python manage.py runserver
 - [Yaroslav](https://github.com/zzstop)
 - [LeushElena](https://github.com/LeushElena)
 - [Angelina](https://github.com/myagkova)
+- [Kirill Beliakov](https://github.com/blkvk)
