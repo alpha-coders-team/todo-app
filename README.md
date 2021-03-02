@@ -9,8 +9,30 @@ TODO: несколько слов о проекте
 - git pull - подтянет с сервера изменения и обновит файлы
 - git stash pop - вернёт все изменения обратно
 
+
 ## Локальный setup
-TODO: инструкции для запуска проекта локально
+Клонируем репозиторий себе на компьютер:
+
+$ git clone https://github.com/alpha-coders-team/todo-app.git
+
+Создаем виртуальное окружение:
+
+$ python -m venv venv
+
+Устанавливаем зависимости:
+
+$ pip install -r requirements.txt
+
+Применяем миграции:
+
+$ python manage.py makemigrations 
+
+$ python manage.py migrate
+
+Запускаем локальный сервер джанго:
+
+$ python manage.py runserver
+
 
 ## Contributors
 - [Nikita](https://github.com/gaikanomer9)
