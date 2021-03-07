@@ -1,60 +1,46 @@
-{% extends 'base.html' %}
-{% block title %} Войти {% endblock %}
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
 {% block content %}
 
-<div class='row justify-content-center'>
-    <div class='col-md-8 p-5'>
-        <div class='card'>
-            <div class='card-header'>Войти на сайт</div>
-            <div class='card-body'>
-                {% if form.errors %}
-                <div class='alert alert-danger' role='alert'>
-                    Имя пользоваетеля и пароль не совпадают. Введите правильные данные.
-                </div>
-                {% endif %}
+<h1>{% trans "Sign In" %}</h1>
 
-                {% if next %}
-                <div class='alert alert-info' role='alert'>
-                    Вы обратились к странице, доступ к которой возможен только для залогиненных пользователей.<br>
-                    Пожалуйста, авторизуйтесь.
-                </div>
-                {% else %}
-                <div class='alert alert-info' role='alert'>
-                    Пожалуйста, авторизуйтесь.
-                </div>
-                {% endif %}
+{% get_providers as socialaccount_providers %}
 
-                <form method='post' action='{% url 'login' %}'>
-                {% csrf_token %}
-                <input type='hidden' name='next' value='{{ next }}'>
-                <div class='form-group row'>
-                    <label for='{{ form.username.id_for_label }}' class='col-md-4 col-form-label text-md-right'>Имя
-                        пользователя</label>
-                    <div class='col-md-6'>
-                        {{ form.username }}
-                    </div>
-                </div>
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-                <div class='form-group row'>
-                    <label for='{{ form.password.id_for_label }}'
-                           class='col-md-4 col-form-label text-md-right'>Пароль</label>
-                    <div class='col-md-6'>
-                        {{ form.password }}
-                    </div>
-                </div>
+<div class="socialaccount_ballot">
 
-                <div class='col-md-6 offset-md-4'>
-                    <button type='submit' class='btn btn-primary'>
-                        Войти
-                    </button>
-                    <a href='{% url 'password_reset' %}' class='btn btn-link'>
-                    Забыли пароль?
-                    </a>
-                </div>
-                </form>
-            </div> <!-- card body -->
-        </div> <!-- card -->
-    </div> <!-- col -->
-</div> <!-- row -->
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+</form>
 
 {% endblock %}
