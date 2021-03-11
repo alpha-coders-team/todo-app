@@ -1,0 +1,8 @@
+{% block content %}
+    <h2>Tasks <a href='add-task'>+</a></h2>
+    <ul>
+        {% for task in object_list %}
+            <li>{{ task.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

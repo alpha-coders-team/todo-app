@@ -1,9 +1,20 @@
-from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView
+
+from .models import Task
 
 
-def index(request):
-    context = {
-        'welcome': 'Hello, world',
-    }
+class TaskList(ListView):
+    model = Task
+    template_name = 'tasks/index.html'
 
-    return render(request, 'index.html', context)
+
+class CreateTask(CreateView):
+    model = Task
+    template_name = 'tasks/add-task.html'
+    success_url = reverse_lazy('index')
+    fields = ('title',)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
