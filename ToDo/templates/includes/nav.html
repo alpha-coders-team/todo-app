@@ -5,11 +5,11 @@
     {% if user.is_authenticated %}
 
     <a href="{% url 'add-task' %}">Добавить новую задачу (+)</a>
-    <a class='p-2 text-dark' href='{% url 'password_change' %}'>Изменить пароль</a>
-    <a class='p-2 text-dark' href='{% url 'logout' %}'>Выйти</a>
+    <a class='p-2 text-dark' href="{% url 'password_change' %}">Изменить пароль</a>
+    <a class='p-2 text-dark' href="{% url 'logout' %}">Выйти</a>
     {% else %}
-    <a class='p-2 text-dark' href='{% url 'login' %}'>Войти</a> |
-    <a class='p-2 text-dark' href='{% url 'signup' %}'>Регистрация</a>
+    <a class='p-2 text-dark' href="{% url 'login' %}">Войти</a> |
+    <a class='p-2 text-dark' href="{% url 'signup' %}">Регистрация</a>
     {% endif %}
   </nav>
 </nav>

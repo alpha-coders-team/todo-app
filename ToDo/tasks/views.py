@@ -14,9 +14,10 @@ class TaskList(LoginRequiredMixin, ListView):
         return Task.objects.filter(owner=self.request.user)
 
 
-class CreateTask(CreateView):
+class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/add-task.html'
+    login_url = '/auth/login/'
     success_url = reverse_lazy('index')
     fields = ('title',)
 
