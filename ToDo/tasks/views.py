@@ -1,5 +1,5 @@
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView
 
 from .models import Task
 
@@ -7,6 +7,9 @@ from .models import Task
 class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user)
 
 
 class CreateTask(CreateView):

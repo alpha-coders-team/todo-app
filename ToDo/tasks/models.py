@@ -10,7 +10,7 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks',
         verbose_name='Владелец задачи',
-        help_text='Укажите имя владельца',
+        help_text='Укажите имя',
     )
     title = models.CharField(
         max_length=280,
