@@ -40,7 +40,7 @@ $ git clone https://github.com/alpha-coders-team/todo-app.git
 
 **Переходим в папку приложения:**
 ```bash
-$ cd todo-app/
+$ cd todo_app-app/
 ```
 
 **Создаем виртуальное окружение:**
