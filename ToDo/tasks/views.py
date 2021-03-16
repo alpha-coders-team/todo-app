@@ -19,7 +19,7 @@ class CreateTask(LoginRequiredMixin, CreateView):
     template_name = 'tasks/add-task.html'
     login_url = '/auth/login/'
     success_url = reverse_lazy('index')
-    fields = ('title',)
+    fields = ('title', 'category')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

@@ -22,6 +22,13 @@ class Task(models.Model):
         verbose_name='Дата',
         help_text='Дата и время выполнения задачи',
     )
+    category = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        verbose_name='Категория',
+        help_text='Категория задачи',
+    )
 
     class Meta:
         ordering = ('finish_date',)
