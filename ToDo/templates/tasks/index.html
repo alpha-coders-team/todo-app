@@ -3,7 +3,7 @@
     <h2>Мои задачи ({{ request.user.username }})</h2>
     <ul>
         {% for task in object_list %}
-            <li>{{ task.title }}</li>
+            <li><a name="task_{{ post.id }}" href="{% url 'view-task' task.owner.username task.id %}">{{ task.title }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
