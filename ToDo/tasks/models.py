@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+import datetime
 
 User = get_user_model()
 
@@ -17,14 +18,19 @@ class Task(models.Model):
         verbose_name='Задача',
         help_text='Быстрое добавление задачи',
     )
-    finish_date = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата',
-        help_text='Дата и время выполнения задачи',
+    deadline = models.DateTimeField(
+        default=datetime.datetime.now(),
+        verbose_name='Дедлайн',
+        help_text='Срок выполнения задачи',
+    )
+    priority = models.SmallIntegerField(
+        default=10,
+        verbose_name='Приоритет',
+        help_text='Приоритет выполнения задачи',
     )
 
     class Meta:
-        ordering = ('finish_date',)
+        ordering = ('deadline', 'priority',)
 
     def __str__(self):
         return self.title
