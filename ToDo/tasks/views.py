@@ -1,9 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.response import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
-from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
 
 from .models import Task
 
@@ -29,20 +28,12 @@ class CreateTask(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
-    template_name = 'tasks/detail_task_view.html'
     slug_field = 'id'
 
-    def test_func(self):
-        self.object = self.get_object()
-        if self.request.user == self.object.owner:
-            return True
-
-
-def forbidden(request, exception):
-    return render(
-        request,
-        'misc/403.html',
-        status=403
-    )
+    def get_object(self):
+        object = super(TaskDetailView, self).get_object()
+        if not self.request.user == object.owner:
+            raise Http404
+        return object

@@ -1,6 +1,7 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.db import models
-import datetime
 from django.urls import reverse
 
 User = get_user_model()
