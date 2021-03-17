@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+import datetime
 
 User = get_user_model()
 
@@ -18,7 +19,7 @@ class Task(models.Model):
         help_text='Быстрое добавление задачи',
     )
     deadline = models.DateTimeField(
-        auto_now_add=True,
+        default=datetime.datetime.now(),
         verbose_name='Дедлайн',
         help_text='Срок выполнения задачи',
     )
