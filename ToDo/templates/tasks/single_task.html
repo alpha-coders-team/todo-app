@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block header %}
-    Просмотр задачи {{ task.title }}
-{% endblock %}
-{% block content %}
-    {{ task.finish_date|date:"l j F Y" }}
-{% endblock %}

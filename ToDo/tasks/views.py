@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Task
@@ -28,9 +29,8 @@ class CreateTask(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-@login_required
-def view_task(request, username, post_id):
-    task = get_object_or_404(Task, id=post_id, owner__username=username)
-    if task.owner == request.user:
-        return render(request, 'tasks/single_task.html', {'task': task})
-    return redirect('index')
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = Task
+    template_name = 'tasks/detail_task_view.html'
+    pk_url_kwarg = 'id'
+    login_url = '/auth/login/'
