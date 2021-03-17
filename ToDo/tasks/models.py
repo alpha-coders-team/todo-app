@@ -17,10 +17,10 @@ class Task(models.Model):
         verbose_name='Задача',
         help_text='Быстрое добавление задачи',
     )
-    finish_date = models.DateTimeField(
+    deadline = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Дата',
-        help_text='Дата и время выполнения задачи',
+        verbose_name='Дедлайн',
+        help_text='Срок выполнения задачи',
     )
 
     class Meta:
