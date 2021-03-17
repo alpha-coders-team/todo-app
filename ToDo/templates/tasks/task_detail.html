@@ -3,5 +3,5 @@
     Просмотр задачи {{ task.title }}
 {% endblock %}
 {% block content %}
-    {{ task.finish_date|date:"l j F Y" }}
+    Дедлайн: {{ task.deadline|date:"l j F Y G:i" }}
 {% endblock %}
