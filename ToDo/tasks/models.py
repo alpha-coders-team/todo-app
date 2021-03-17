@@ -22,9 +22,14 @@ class Task(models.Model):
         verbose_name='Дедлайн',
         help_text='Срок выполнения задачи',
     )
+    priority = models.SmallIntegerField(
+        default=10,
+        verbose_name='Приоритет',
+        help_text='Приоритет выполнения задачи',
+    )
 
     class Meta:
-        ordering = ('finish_date',)
+        ordering = ('deadline', 'priority',)
 
     def __str__(self):
         return self.title
