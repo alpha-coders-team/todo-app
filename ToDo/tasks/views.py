@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.response import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from django.views.generic.detail import DetailView
 
 from .models import Task
 from .forms import TaskForm
@@ -30,3 +32,14 @@ class CreateTask(LoginRequiredMixin, CreateView):
         kwargs = super(CreateTask, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = Task
+    slug_field = 'pk'
+
+    def get_object(self):
+        object = super(TaskDetailView, self).get_object()
+        if not self.request.user == object.owner:
+            raise Http404
+        return object
