@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block header %}
+    Просмотр задачи {{ task.title }}
+{% endblock %}
+{% block content %}
+    Дедлайн: {{ task.deadline|date:"l j F Y G:i" }}
+{% endblock %}
