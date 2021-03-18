@@ -6,7 +6,7 @@ from .models import Category, Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'category', ]
+        fields = ['title', 'deadline', 'priority', 'category']
 
     new_category = forms.CharField(
         max_length=30, required=False, label="New Category Name"
