@@ -22,10 +22,7 @@ class TaskForm(forms.ModelForm):
     def clean(self):
         category = self.cleaned_data.get('category')
         new_category = self.cleaned_data.get('new_category')
-        if not category and not new_category:
-            raise forms.ValidationError(
-                'Must specify either Studio or New Studio!')
-        elif not category:
+        if not category:
             category, created = Category.objects.get_or_create(
                 title=new_category, owner=self.user)
             self.cleaned_data['category'] = category
