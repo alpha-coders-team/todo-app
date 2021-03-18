@@ -30,7 +30,7 @@ class CreateTask(LoginRequiredMixin, CreateView):
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
-    slug_field = 'id'
+    slug_field = 'pk'
 
     def get_object(self):
         object = super(TaskDetailView, self).get_object()
