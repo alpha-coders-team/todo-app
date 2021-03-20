@@ -8,4 +8,5 @@ urlpatterns = [
          name='add-task'),
     path('<str:owner>/<int:pk>/', views.TaskDetailView.as_view(),
          name='view-task'),
+    path('add-category/', views.CreateCategory.as_view(), name='add-category')
 ]

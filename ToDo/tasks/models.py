@@ -51,16 +51,16 @@ class Task(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.CASCADE,
+        models.SET_NULL,
         null=True,
         blank=True,
-        related_name='task_category',
+        related_name='tasks',
         verbose_name='Категория',
         help_text='Укажите категорию',
     )
 
     class Meta:
-        ordering = ('deadline', 'priority',)
+        ordering = ('deadline', 'priority', 'category')
 
     def __str__(self):
         return self.title
