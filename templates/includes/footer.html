@@ -1,0 +1,6 @@
+<footer>
+  {% now "Y" %} © Created by Alpha Coders: <a href="https://github.com/alpha-coders-team/todo-app">GitHub</a>
+  {% if user.is_authenticated %}
+  Написать нам: <a href="{% url 'contact_us' %}">Contact Us</a>
+  {% endif %}
+</footer>
