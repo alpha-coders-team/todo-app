@@ -11,6 +11,7 @@ class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/index.html'
     login_url = '/auth/login/'
+    paginate_by = 2
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)
