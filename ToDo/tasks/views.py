@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.detail import DetailView
 
-from .models import Task
+from .models import Task, User
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -38,3 +39,13 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         if not self.request.user == object.owner:
             raise Http404
         return object
+
+
+class UserDelete(DeleteView):
+    model = User
+    template_name = 'registration/account_delete_confirm.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(User, id=self.request.user.id)
+        return obj
