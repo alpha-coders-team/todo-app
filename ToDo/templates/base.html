@@ -20,9 +20,6 @@
     </div>
     {% block content %}
     {% endblock %}
-    {% if page.has_other_pages %}
-    {% include "includes/paginator.html" with items=page paginator=paginator %}
-    {% endif %}
   </div>
 </main>
 
