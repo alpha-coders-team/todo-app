@@ -39,13 +39,3 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         if not self.request.user == object.owner:
             raise Http404
         return object
-
-
-class UserDelete(DeleteView):
-    model = User
-    template_name = 'registration/account_delete_confirm.html'
-    success_url = reverse_lazy('index')
-
-    def get_object(self, queryset=None):
-        obj = get_object_or_404(User, id=self.request.user.id)
-        return obj
