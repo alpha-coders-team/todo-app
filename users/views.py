@@ -1,5 +1,6 @@
 from django.contrib.auth.views import (
-    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView)
+    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView,
+    PasswordResetView)
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DeleteView
 from django.urls import reverse_lazy
@@ -16,7 +17,7 @@ class SignUp(CreateView):
 
 class SignInView(LoginView):
     form_class = SignInForm
-    template_name = 'users/login.html'
+    template_name = 'users/signin.html'
     success_url = reverse_lazy('index')
 
 
@@ -44,3 +45,7 @@ class ChangePasswordView(PasswordChangeView):
 class ChangePasswordDoneView(PasswordChangeDoneView):
     template_name = 'registration/password_change_done.html'
     title = 'Password change successful'
+
+
+# class ResetPasswordView(PasswordResetView):
+#     pass

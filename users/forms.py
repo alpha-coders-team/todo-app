@@ -38,7 +38,7 @@ class SignInForm(AuthenticationForm):
         widget=forms.TextInput(attrs={'autofocus': True,
                                       'class': 'form-control'}))
     password = forms.CharField(
-        label=_("Password"),
+        label=_("Пароль"),
         strip=False,
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
@@ -63,3 +63,7 @@ class ChangePasswordForm(PasswordChangeForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
     field_order = ['old_password', 'new_password1', 'new_password2']
+
+
+# class ResetPasswordForm(PasswordResetForm):
+#     pass
