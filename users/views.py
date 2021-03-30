@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
-from .forms import UserSignUp
+from .forms import UserSignUp, AuthenticationForm
 from tasks.models import User
 
 
@@ -20,3 +20,8 @@ class UserDelete(DeleteView):
     def get_object(self, queryset=None):
         obj = get_object_or_404(User, id=self.request.user.id)
         return obj
+
+
+class LoginView(FormView):
+    form_class = AuthenticationForm
+    template_name = 'registration/login.html'
