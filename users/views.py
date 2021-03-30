@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
-from .forms import UserSignUp, AuthenticationForm
+from .forms import UserSignUp, SignInForm
 from tasks.models import User
 
 
@@ -23,5 +23,6 @@ class UserDelete(DeleteView):
 
 
 class LoginView(FormView):
-    form_class = AuthenticationForm
+    form_class = SignInForm
     template_name = 'registration/login.html'
+    success_url = reverse_lazy('index')
