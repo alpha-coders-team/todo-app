@@ -10,7 +10,7 @@ from .models import Task
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/index.html'
-    login_url = '/auth/login/'
+    login_url = '/users/signin/'
     paginate_by = 2
 
     def get_queryset(self):
@@ -20,7 +20,7 @@ class TaskList(LoginRequiredMixin, ListView):
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/add-task.html'
-    login_url = '/auth/login/'
+    login_url = '/users/signin/'
     success_url = reverse_lazy('index')
     fields = ('title', 'deadline', 'priority')
 
