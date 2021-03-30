@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DeleteView
 from django.urls import reverse_lazy
@@ -26,4 +26,8 @@ class UserDelete(DeleteView):
 class SignInView(LoginView):
     form_class = SignInForm
     template_name = 'users/login.html'
+    success_url = reverse_lazy('index')
+
+
+class LogoutView(LogoutView):
     success_url = reverse_lazy('index')

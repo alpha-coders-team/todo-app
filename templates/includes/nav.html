@@ -9,7 +9,7 @@
 <!--    Смена пароля работает некорректно (редирект идет не на ту страницу)-->
 <!--    <a class='p-2 text-dark' href="{% url 'password_change' %}">Изменить пароль</a>-->
 
-    <a class='p-2 text-dark' href="{% url 'logout' %}">Выйти</a>
+    <a class='p-2 text-dark' href="{% url 'customlogout' %}">Выйти</a>
     <a class='p-2 text-dark' href="{% url 'user_delete' %}">Удалить аккаунт</a>
     {% else %}
     <a class='p-2 text-dark' href="{% url 'signin' %}">Войти</a> |
