@@ -4,7 +4,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordChangeForm
 )
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, password_validation
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -45,4 +45,21 @@ class SignInForm(AuthenticationForm):
 
 
 class ChangePasswordForm(PasswordChangeForm):
-    pass
+    old_password = forms.CharField(
+        label=_("Старый пароль"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autofocus': True,
+                                          'class': 'form-control'}),
+    )
+    new_password1 = forms.CharField(
+        label=_("Новый пароль"),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    new_password2 = forms.CharField(
+        label=_("Подтвердить пароль"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    )
+    field_order = ['old_password', 'new_password1', 'new_password2']
