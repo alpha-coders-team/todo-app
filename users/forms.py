@@ -1,5 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    PasswordChangeForm
+)
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
@@ -38,3 +42,7 @@ class SignInForm(AuthenticationForm):
         strip=False,
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    pass
