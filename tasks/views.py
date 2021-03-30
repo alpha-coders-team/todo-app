@@ -1,11 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import Http404
-from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DeleteView
+from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
 
-from .models import Task, User
+from .models import Task
 
 
 class TaskList(LoginRequiredMixin, ListView):

@@ -1,26 +1,18 @@
 {% extends "base.html" %}
-
-{% load i18n %}
 {% load account socialaccount %}
 
 {% block title %}Войти{% endblock %}
 
 {% block content %}
-
 <h1>Войти</h1>
-
 {% get_providers as socialaccount_providers %}
 
 <p>Пожалуйста, залогиньтесь с помощью одного из существующих аккаунтов. </p>
-
 <div class="socialaccount_ballot">
-
   <ul class="socialaccount_providers">
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
   </ul>
-
   <div class="login-or">или используйте логин и пароль для входа:</div>
-
 </div>
 
 {% include "socialaccount/snippets/login_extra.html" %}
