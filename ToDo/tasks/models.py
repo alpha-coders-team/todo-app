@@ -42,3 +42,33 @@ class Task(models.Model):
             'view-task',
             kwargs={'owner': self.owner.username, 'pk': self.id}
         )
+
+
+class Subtask(models.Model):
+    task = models.ForeignKey(
+        Task,
+        on_delete=models.CASCADE,
+        related_name='subtasks',
+        verbose_name='Подзадача',
+        null=False,
+        blank=False
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='subtasks',
+        verbose_name='Владелец задачи',
+        help_text='Укажите имя',
+    )
+    title = models.CharField(
+        max_length=280,
+        verbose_name='Имя подзадачи',
+    )
+    deadline = models.DateTimeField(
+        default=datetime.datetime.now(),
+        verbose_name='Дедлайн',
+        help_text='Срок выполнения подзадачи'
+    )
+
+    def __str__(self):
+        return self.title
