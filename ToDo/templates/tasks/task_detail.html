@@ -3,5 +3,12 @@
     Просмотр задачи {{ task.title }}
 {% endblock %}
 {% block content %}
-    Дедлайн: {{ task.deadline|date:"l j F Y G:i" }}
+    Дедлайн: {{ task.deadline|date:"l j F Y G:i" }} <br>
+    <ul>
+    {% for item in task.subtasks.all %}
+        <li>{{ item.title }} -- {{ item.deadline }}</li><br>
+    {% endfor %}
+    </ul>
+    
+    <a href="{% url 'add-subtask' task.owner.username task.id %}">Добавить подзадачу</a>
 {% endblock %}
