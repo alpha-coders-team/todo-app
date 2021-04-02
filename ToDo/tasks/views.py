@@ -3,8 +3,9 @@ from django.http.response import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
 
-from .models import Task
+from .models import Subtask, Task
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -37,3 +38,26 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         if not self.request.user == object.owner:
             raise Http404
         return object
+
+
+class CreateSubtask(LoginRequiredMixin, CreateView):
+    model = Subtask
+    template_name = 'tasks/add-subtask.html'
+    login_url = '/auth/login/'
+    fields = ('title', 'deadline')
+
+    def form_valid(self, form):
+        task_id = self.kwargs['pk']
+        task = get_object_or_404(Task, pk=task_id)
+        if not self.request.user == task.owner:
+            raise Http404
+        form.instance.owner = self.request.user
+        form.instance.task_id = task_id
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        data = {
+            'owner': self.kwargs['owner'],
+            'pk': self.kwargs['pk']
+        }
+        return reverse_lazy('view-task', kwargs=data)
