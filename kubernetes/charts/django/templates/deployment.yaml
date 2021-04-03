@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.django_app.namespace }}
+  name: {{ .Values.django_app.name }}
+  labels:
+    app: {{ .Values.django_app.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.django_app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.django_app.name }}
+    spec:
+      containers:
+        - image: "{{ .Values.django_app.image_name }}:{{ .Values.django_app.image_tag }}"
+          name: {{ .Values.django_app.name }}
+          envFrom:
+          - secretRef:
+              name: {{ .Values.django_app.name }}-secrets
+          - configMapRef:
+              name: {{ .Values.django_app.name }}-config
+          ports:
+            - containerPort: 8000
+              name: gunicorn
+      initContainers:
+        - name: migration-db
+          image: "{{ .Values.django_app.image_name }}:{{ .Values.django_app.image_tag }}"
+          command: ['sh', '-c', 'python manage.py makemigrations && python manage.py migrate']
+          envFrom:
+          - secretRef:
+              name: {{ .Values.django_app.name }}-secrets
+          - configMapRef:
+              name: {{ .Values.django_app.name }}-config

@@ -4,11 +4,13 @@ COPY requirements.txt .
 
 RUN pip install --user -r requirements.txt
 
-FROM python:3.7-alpine3.7
+FROM python:3.7-slim
 
 COPY --from=builder /root/.local /root/.local
 
 COPY ToDo app
+
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev
 
 WORKDIR /app
 
