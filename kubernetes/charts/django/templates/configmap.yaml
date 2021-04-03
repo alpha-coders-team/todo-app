@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.django_app.name }}-config
+data:
+  DJANGO_ALLOWED_HOSTS: "{{ .Values.allowed_hosts }}"
+  DJANGO_LOGLEVEL: {{ .Values.log_level }}
+  DEBUG: "{{ .Values.debug }}"
+  DATABASE_ENGINE: {{ .Values.db_engine }}
+  BUCKET: {{ .Values.bucket }}
+  STATIC_ROOT: {{ .Values.static_root }}
+  MEDIA_ROOT: {{ .Values.media_root }}
+  ENVIRONMENT: {{ .Values.environment }}
+  PROJECT_ID: {{ .Values.project_id }}
