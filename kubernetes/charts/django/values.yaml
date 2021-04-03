@@ -1,0 +1,12 @@
+
+allowed_hosts: "*"
+log_level: info
+debug: "True"
+db_engine: mysql
+
+
+django_app:
+    namespace: alpha-space
+    name: todo
+    image_name: eu.gcr.io/alpha-team-praktikum/todo_app
+    image_tag: latest
