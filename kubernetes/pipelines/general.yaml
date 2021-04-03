@@ -1,0 +1,13 @@
+substitutions:
+  _REVISION_TAG: ${COMMIT_SHA}
+steps:
+  - id: "building-image"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "eu.gcr.io/alpha-team-praktikum/todo_app:${_REVISION_TAG}"
+      - "."
+images: ["eu.gcr.io/alpha-team-praktikum/todo_app:${_REVISION_TAG}"]
+options:
+  dynamic_substitutions: true
