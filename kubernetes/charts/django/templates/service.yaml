@@ -11,4 +11,4 @@ spec:
   ports:
     - port: 8000
       targetPort: 8000
-      nodePort: 32200
+      nodePort: {{ .Values.node_port }}
