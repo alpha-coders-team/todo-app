@@ -1,5 +1,6 @@
 import os
 import json
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,14 +9,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', "secret_key")
 
-
 DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1').split(',')
 
 
 INSTALLED_APPS = [
-    'todo_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -23,12 +22,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'users',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.vk',
     'tasks.apps.TasksConfig',
+    'contacts',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,7 @@ else:
                 os.getenv('DATABASE_OPTIONS', '{}')
             ),
         }
+
     }
 
 
@@ -153,6 +155,8 @@ else:
     DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads")
     DOWNLOAD_URL = STATIC_URL + "media/downloads"
 
+LOGIN_URL = 'signin'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 SITE_ID = 1
@@ -164,3 +168,9 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+NOREPLY_TODO_EMAIL = 'noreply@todo.app'
+
+AUTH_USER_MODEL = 'users.User'
