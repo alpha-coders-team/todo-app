@@ -1,9 +1,13 @@
 import os
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', "secret_key")
+
 
 DEBUG = os.getenv('DEBUG', False)
 
@@ -58,22 +62,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ToDo.wsgi.application'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.{}'.format(
-            os.getenv('DATABASE_ENGINE', 'sqlite3')
-        ),
-        'NAME': os.getenv('DATABASE_NAME', 'todo'),
-        'USER': os.getenv('DATABASE_USERNAME', 'todo'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', 3306),
-        'OPTIONS': json.loads(
-            os.getenv('DATABASE_OPTIONS', '{}')
-        ),
+if os.getenv('ENVIRONMENT', 'local') == 'local':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.{}'.format(
+                os.getenv('DATABASE_ENGINE', 'sqlite3')
+            ),
+            'NAME': os.getenv('DATABASE_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+            'USER': os.getenv('DATABASE_USERNAME', 'todo'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+            'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+            'PORT': os.getenv('DATABASE_PORT', 3306),
+            'OPTIONS': json.loads(
+                os.getenv('DATABASE_OPTIONS', '{}')
+            ),
+        }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -102,11 +112,45 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+PROJECT_ROOT = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), os.pardir)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if os.getenv('ENVIRONMENT', 'local') == 'local':
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+    UPLOAD_ROOT = 'uploads/'
+
+    DOWNLOAD_URL = STATIC_URL + "media/downloads"
+    DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads")
+# for prod environment
+else:
+
+    DEFAULT_FILE_STORAGE = 'ToDo.gcloud.GoogleCloudMediaFileStorage'
+    STATICFILES_STORAGE = 'ToDo.gcloud.GoogleCloudStaticFileStorage'
+
+    GS_PROJECT_ID = os.getenv('PROJECT_ID')
+    GS_STATIC_BUCKET_NAME = os.getenv('BUCKET')
+    # same as STATIC BUCKET if using single bucket both for static and media
+    GS_MEDIA_BUCKET_NAME = os.getenv('BUCKET')
+
+    STATIC_URL = 'https://storage.googleapis.com/{}/'.format(
+        GS_STATIC_BUCKET_NAME)
+    STATIC_ROOT = "static/"
+
+    MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(
+        GS_MEDIA_BUCKET_NAME)
+    MEDIA_ROOT = "media/"
+
+    UPLOAD_ROOT = 'media/uploads/'
+
+    DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads")
+    DOWNLOAD_URL = STATIC_URL + "media/downloads"
 
 LOGOUT_REDIRECT_URL = 'index'
 

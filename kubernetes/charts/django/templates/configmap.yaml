@@ -7,3 +7,8 @@ data:
   DJANGO_LOGLEVEL: {{ .Values.log_level }}
   DEBUG: "{{ .Values.debug }}"
   DATABASE_ENGINE: {{ .Values.db_engine }}
+  BUCKET: {{ .Values.bucket }}
+  STATIC_ROOT: {{ .Values.static_root }}
+  MEDIA_ROOT: {{ .Values.media_root }}
+  ENVIRONMENT: {{ .Values.environment }}
+  PROJECT_ID: {{ .Values.project_id }}
