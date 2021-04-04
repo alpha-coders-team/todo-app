@@ -17,7 +17,7 @@
 
 {% include "socialaccount/snippets/login_extra.html" %}
 
-<form class="login" method="POST" action="{% url 'login' %}">
+<form class="login" method="POST" action="{% url 'signin' %}">
   {% csrf_token %}
   {{ form.as_p }}
   {% if redirect_field_value %}

@@ -10,7 +10,7 @@ from .models import Task
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/index.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user).order_by('-id')
