@@ -84,6 +84,7 @@ else:
                 os.getenv('DATABASE_OPTIONS', '{}')
             ),
         }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
