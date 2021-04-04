@@ -10,22 +10,25 @@ from .models import Task
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/index.html'
-    login_url = '/auth/login/'
+    paginate_by = 2
 
     def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+        return Task.objects.filter(owner=self.request.user).order_by('-id')
 
 
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/add-task.html'
-    login_url = '/auth/login/'
     success_url = reverse_lazy('index')
-    fields = ('title', 'deadline', 'priority')
+    fields = ['title', 'deadline', 'priority']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+    def get_form(self, *args, **kwargs):
+        form = super(CreateTask, self).get_form(*args, **kwargs)
+        return form
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
