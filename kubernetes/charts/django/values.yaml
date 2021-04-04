@@ -9,6 +9,7 @@ static_root: "static/"
 environment: "prod"
 project_id: "alpha-team-praktikum"
 
+
 django_app:
     namespace: alpha-space
     name: todo
