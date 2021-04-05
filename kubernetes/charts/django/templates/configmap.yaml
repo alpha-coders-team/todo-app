@@ -5,7 +5,6 @@ metadata:
 data:
   DJANGO_ALLOWED_HOSTS: "{{ .Values.allowed_hosts }}"
   DJANGO_LOGLEVEL: {{ .Values.log_level }}
-  DEBUG: "{{ .Values.debug }}"
   DATABASE_ENGINE: {{ .Values.db_engine }}
   BUCKET: {{ .Values.bucket }}
   STATIC_ROOT: {{ .Values.static_root }}
