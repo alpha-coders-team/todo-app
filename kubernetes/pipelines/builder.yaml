@@ -1,0 +1,11 @@
+steps:
+  - id: "building-image"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "eu.gcr.io/alpha-team-praktikum/todo_builder:latest"
+      - "-f"
+      - "kubernetes/build_images/Dockerfile.builder"
+      - "."
+images: ["eu.gcr.io/alpha-team-praktikum/todo_builder:latest"]

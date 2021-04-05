@@ -1,5 +1,6 @@
 # ToDo Application
 
+[![App Status](https://argo.alpha-coders.team/api/badge?name=todo&revision=true)](https://argo.alpha-coders.team/applications/todo)
 ## Описание
 ToDo Application — сервис, который помогает привести дела в порядок. Люди добавляют здесь задачи и сортируют по приоритету, чтобы ничего не забыть и сделать вовремя. Категории и подзадачи помогают структурировать информацию, а комментарии — не упустить детали.
 
@@ -126,7 +127,7 @@ docker tag todo eu.gcr.io/alpha-team-praktikum/todo_app
 docker push eu.gcr.io/alpha-team-praktikum/todo_app
 
 ### Миграция базы данных
-kubectl run mysql-client --rm --tty -i --restart='Never' --image  eu.gcr.io/alpha-team-praktikum/todo_app:latest --namespace default --command -- sh -c "python manage.py makemigrations && python manage.py migrate"
+kubectl run mysql-client --rm --tty -i --restart='Never' --image  eu.gcr.io/alpha-team-praktikum/todo_app:latest --namespace alpha-space --command -- sh -c "python manage.py createsuperuser"
 
 docker run --env-file .env-local todo sh -c "python manage.py makemigrations && python manage.py migrate"
 

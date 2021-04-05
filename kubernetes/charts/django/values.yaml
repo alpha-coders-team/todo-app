@@ -1,7 +1,6 @@
 
 allowed_hosts: "*"
 log_level: info
-debug: "False"
 db_engine: mysql
 bucket: "alpha-todo-static"
 media_root: "media/"
