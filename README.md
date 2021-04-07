@@ -1,5 +1,6 @@
 # ToDo Application
 
+[![App Status](https://argo.alpha-coders.team/api/badge?name=todo&revision=true)](https://argo.alpha-coders.team/applications/todo)
 ## Описание
 ToDo Application — сервис, который помогает привести дела в порядок. Люди добавляют здесь задачи и сортируют по приоритету, чтобы ничего не забыть и сделать вовремя. Категории и подзадачи помогают структурировать информацию, а комментарии — не упустить детали.
 
@@ -115,6 +116,59 @@ $ python manage.py runserver
 ```
 - Сохранить
 
+
+## CI/CD
+
+### Создание локального образа
+
+docker build -t todo .
+### Отправка образа в GCR
+docker tag todo eu.gcr.io/alpha-team-praktikum/todo_app
+docker push eu.gcr.io/alpha-team-praktikum/todo_app
+
+### Миграция базы данных
+kubectl run mysql-client --rm --tty -i --restart='Never' --image  eu.gcr.io/alpha-team-praktikum/todo_app:latest --namespace alpha-space --command -- sh -c "python manage.py createsuperuser"
+
+docker run --env-file .env-local todo sh -c "python manage.py makemigrations && python manage.py migrate"
+
+## База данных
+
+### Подключение к базе данных
+
+kubectl run mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:8.0.23-debian-10-r57 --namespace mysql --command -- bash
+
+
+https://github.com/bitnami/charts/tree/master/bitnami/mysql/#installing-the-chart
+
+Services:
+
+  echo Primary: mysql.mysql.svc.cluster.local:3306
+
+Administrator credentials:
+
+  echo Username: root
+  echo Password : $(kubectl get secret --namespace mysql mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
+
+To connect to your database:
+
+  1. Run a pod that you can use as a client:
+
+      kubectl run mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:8.0.23-debian-10-r57 --namespace mysql --command -- bash
+
+  2. To connect to primary service (read/write):
+
+      mysql -h mysql.mysql.svc.cluster.local -uroot -p todo
+
+To upgrade this helm chart:
+
+  1. Obtain the password as described on the 'Administrator credentials' section and set the 'root.password' parameter as shown below:
+
+      ROOT_PASSWORD=$(kubectl get secret --namespace mysql mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
+      helm upgrade mysql bitnami/mysql --set auth.rootPassword=$ROOT_PASSWORD
+
+Для обновления параметров базы данных:
+
+helm upgrade --namespace mysql mysql mysql --set auth.rootPassword=$MYSQL_ROOT_PASSWORD --set auth.password=$MYSQL_PASSWORD
 
 ## Contributors
 - [Nikita](https://github.com/gaikanomer9)

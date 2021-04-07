@@ -1,0 +1,10 @@
+annotations:
+  category: App
+apiVersion: v2
+appVersion: 1.0.1
+description: Chart to create a django app
+home: https://github.com/alpha-coders-team/todo-app
+name: django-app
+sources:
+- https://github.com/alpha-coders-team/todo-app
+version: 1.0.1

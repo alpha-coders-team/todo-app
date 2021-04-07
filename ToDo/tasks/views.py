@@ -10,16 +10,15 @@ from .models import Category, Task
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/index.html'
-    login_url = '/auth/login/'
+    paginate_by = 10
 
     def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+        return Task.objects.filter(owner=self.request.user).order_by('-id')
 
 
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/add-task.html'
-    login_url = '/auth/login/'
     success_url = reverse_lazy('index')
     fields = ['title', 'deadline', 'priority', 'category']
 
