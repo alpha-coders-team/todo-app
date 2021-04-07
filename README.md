@@ -135,40 +135,22 @@ docker run --env-file .env-local todo sh -c "python manage.py makemigrations && 
 
 ### Подключение к базе данных
 
-kubectl run mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:8.0.23-debian-10-r57 --namespace mysql --command -- bash
+PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
 
+    postgresql.postgresql.svc.cluster.local - Read/Write connection
 
-https://github.com/bitnami/charts/tree/master/bitnami/mysql/#installing-the-chart
+To get the password for "postgres" run:
 
-Services:
+    export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
-  echo Primary: mysql.mysql.svc.cluster.local:3306
+To connect to your database run the following command:
 
-Administrator credentials:
+    kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image docker.io/bitnami/postgresql:11.11.0-debian-10-r50 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
 
-  echo Username: root
-  echo Password : $(kubectl get secret --namespace mysql mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
+To connect to your database from outside the cluster execute the following commands:
 
-To connect to your database:
-
-  1. Run a pod that you can use as a client:
-
-      kubectl run mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:8.0.23-debian-10-r57 --namespace mysql --command -- bash
-
-  2. To connect to primary service (read/write):
-
-      mysql -h mysql.mysql.svc.cluster.local -uroot -p todo
-
-To upgrade this helm chart:
-
-  1. Obtain the password as described on the 'Administrator credentials' section and set the 'root.password' parameter as shown below:
-
-      ROOT_PASSWORD=$(kubectl get secret --namespace mysql mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
-      helm upgrade mysql bitnami/mysql --set auth.rootPassword=$ROOT_PASSWORD
-
-Для обновления параметров базы данных:
-
-helm upgrade --namespace mysql mysql mysql --set auth.rootPassword=$MYSQL_ROOT_PASSWORD --set auth.password=$MYSQL_PASSWORD
+    kubectl port-forward --namespace postgresql svc/postgresql 5432:5432 &
+    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 
 ## Contributors
 - [Nikita](https://github.com/gaikanomer9)

@@ -10,8 +10,6 @@ COPY --from=builder /root/.local /root/.local
 
 COPY ToDo app
 
-RUN apt-get update && apt-get install -y default-libmysqlclient-dev
-
 WORKDIR /app
 
 ENV PATH /root/.local:$PATH
