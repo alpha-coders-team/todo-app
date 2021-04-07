@@ -1,9 +1,0 @@
-steps:
-  - id: "building-image"
-    name: "eu.gcr.io/alpha-team-praktikum/todo_builder:latest"
-    dir: "ToDo"
-    args:
-      - "python"
-      - "manage.py"
-      - "makemigrations"
-      - "--check"
