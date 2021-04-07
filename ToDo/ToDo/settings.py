@@ -79,7 +79,7 @@ else:
             'NAME': os.getenv('DATABASE_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
             'USER': os.getenv('DATABASE_USERNAME', 'todo'),
             'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
-            'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+            'HOST': "postgresql.postgresql.svc.cluster.local",
             'PORT': os.getenv('DATABASE_PORT', 3306),
             'OPTIONS': json.loads(
                 os.getenv('DATABASE_OPTIONS', '{}')
