@@ -1,7 +1,7 @@
 
 allowed_hosts: "*"
 log_level: info
-db_engine: mysql
+db_engine: postgresql_psycopg2
 bucket: "alpha-todo-static"
 media_root: "media/"
 static_root: "static/"
