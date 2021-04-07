@@ -75,12 +75,12 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.{}'.format(
                 os.getenv('DATABASE_ENGINE', 'sqlite3')
-            ),
-            'NAME': os.getenv('DATABASE_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+            ).replace('\n', ''),
+            'NAME': os.getenv('DATABASE_NAME', os.path.join(BASE_DIR, 'db.sqlite3')).replace('\n', ''),
             'USER': os.getenv('DATABASE_USERNAME', 'todo'),
-            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
-            'HOST': "postgresql.postgresql.svc.cluster.local",
-            'PORT': os.getenv('DATABASE_PORT', 3306),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password').replace('\n', ''),
+            'HOST': os.getenv('DATABASE_HOST', '127.0.0.1').replace('\n', ''),
+            'PORT': os.getenv('DATABASE_PORT', 3306).replace('\n', ''),
             'OPTIONS': json.loads(
                 os.getenv('DATABASE_OPTIONS', '{}')
             ),
