@@ -6,3 +6,12 @@ steps:
       - "python"
       - "manage.py"
       - "test"
+
+  - id: "testing-if-migrations-are-not-committed"
+    name: "eu.gcr.io/alpha-team-praktikum/todo_builder:latest"
+    dir: "ToDo"
+    args:
+      - "python"
+      - "manage.py"
+      - "makemigrations"
+      - "--check"
