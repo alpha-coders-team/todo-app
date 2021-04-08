@@ -2,6 +2,7 @@
 {% block content %}
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
+    <a href="{% url 'add-category'  %}"><input type="button" value="Добавить категорию"></a><br>
     <input type="submit" value="Добавить задачу">
 </form>
 {% endblock %}

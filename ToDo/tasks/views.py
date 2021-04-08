@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
 
-from .models import Task
+from .models import Category, Task
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -20,7 +20,7 @@ class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/add-task.html'
     success_url = reverse_lazy('index')
-    fields = ['title', 'deadline', 'priority']
+    fields = ['title', 'deadline', 'priority', 'category']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -28,7 +28,20 @@ class CreateTask(LoginRequiredMixin, CreateView):
 
     def get_form(self, *args, **kwargs):
         form = super(CreateTask, self).get_form(*args, **kwargs)
+        form.fields['category'].queryset = Category.objects.filter(
+            owner=self.request.user)
         return form
+
+
+class CreateCategory(LoginRequiredMixin, CreateView):
+    model = Category
+    fields = ['title', ]
+    template_name = 'tasks/add-category.html'
+    success_url = reverse_lazy('add-task')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
