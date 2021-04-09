@@ -1,0 +1,23 @@
+/* nav {
+    padding:15px 30px 15px 30px;
+} */
+.container{
+    margin: auto;
+}
+.nav-icon{
+    width:25px;
+    display: block;
+    margin:auto;
+}
+.navbar-brand{
+    padding-left: 60px;
+}
+.navbar-nav{
+    padding-right:60px;
+}
+.nav-item{
+    width:60px;
+}
+.dropdown{
+    height: 100%;
+}
