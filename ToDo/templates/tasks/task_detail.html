@@ -1,7 +1,28 @@
 {% extends "base.html" %}
 {% block header %}
-    Просмотр задачи {{ task.title }}
+
 {% endblock %}
 {% block content %}
-    Дедлайн: {{ task.deadline|date:"l j F Y G:i" }}
+  <div class="card bg-light mb-3" style="max-width: 640px;">
+    <div class="card-header">
+      Просмотр задачи {{ task.title }}
+    </div>
+    <div class="card-body">
+      Здесь возможно будет текст
+    </div>
+    <div class="card-footer row">
+      <div class="col-md-6">
+        Дедлайн: {{ task.deadline|date:"l j F Y G:i" }}
+      </div>
+      <div class="btn col-md-3">
+        <a href="{% url 'update-task' task.owner task.pk %}"><input type="button" value="Редактировать"></a>
+      </div>
+      <div class="btn col-md-3">
+        <form action="{% url 'delete-task' task.owner task.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Удалить">
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}
