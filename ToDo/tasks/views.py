@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import Http404
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -26,6 +27,11 @@ class CreateTask(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateTask, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class CreateCategory(LoginRequiredMixin, CreateView):
@@ -56,6 +62,11 @@ class UpdateTask(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     template_name = 'tasks/add-task.html'
     success_url = reverse_lazy('index')
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateTask, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class DeleteTask(LoginRequiredMixin, DeleteView):
