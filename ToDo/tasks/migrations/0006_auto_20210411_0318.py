@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='deadline',
-            field=models.DateTimeField(default=datetime.datetime(1970, 1, 1, 0, 0), help_text='Срок выполнения задачи', verbose_name='Дедлайн'),
+            field=models.DateTimeField(default=datetime.datetime.now(), help_text='Срок выполнения задачи', verbose_name='Дедлайн'),
         ),
         migrations.CreateModel(
             name='Comment',
