@@ -1,5 +1,5 @@
 from django import forms
-from .models import Task
+from .models import Task, Comment
 
 
 class TaskForm(forms.ModelForm):
@@ -12,3 +12,10 @@ class TaskForm(forms.ModelForm):
             'priority': forms.NumberInput(attrs={"class": "form-control"}),
             'category': forms.Select(attrs={"class": "form-control"}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text', )
+        widgets = {'text': forms.TextInput(attrs={"class": "form-control"})}

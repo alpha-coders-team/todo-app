@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .views import Task
+from .models import Task, Category, Comment
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -11,3 +11,6 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Category)
+admin.site.register(Comment)
+
