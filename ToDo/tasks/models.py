@@ -40,7 +40,7 @@ class Task(models.Model):
         help_text='Быстрое добавление задачи',
     )
     deadline = models.DateTimeField(
-        default=datetime.datetime.now(),
+        default=datetime.datetime(year=1970, month=1, day=1),
         verbose_name='Дедлайн',
         help_text='Срок выполнения задачи',
     )
