@@ -27,6 +27,12 @@ class CreateTask(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+    def get_form(self, *args, **kwargs):
+        form = super(CreateTask, self).get_form(*args, **kwargs)
+        form.fields['category'].queryset = Category.objects.filter(
+            owner=self.request.user)
+        return form
+
 
 class CreateCategory(LoginRequiredMixin, CreateView):
     model = Category
@@ -56,6 +62,12 @@ class UpdateTask(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     template_name = 'tasks/add-task.html'
     success_url = reverse_lazy('index')
+
+    def get_form(self, *args, **kwargs):
+        form = super(UpdateTask, self).get_form(*args, **kwargs)
+        form.fields['category'].queryset = Category.objects.filter(
+            owner=self.request.user)
+        return form
 
 
 class DeleteTask(LoginRequiredMixin, DeleteView):
