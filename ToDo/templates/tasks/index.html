@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Мои задачи ({{ request.user.username }})</h2>
-<ul>
+<ul id="main-tasks">
   {% for task in object_list %}
-  <li><a name="task_{{ task.id }}" href="{{ task.get_absolute_url }}">{{ task.title }} -- {{ task.category }}</a></li>
+  <li id="task-item-{{ task.id }}" class="task-item">
+    <div class="task-placeholder">
+      <div class="round task-checkbox">
+        <input data-url="api/v1/tasks/{{ task.id }}/" type="checkbox" id="task_{{ task.id }}"
+          onclick="completedTask(this)" />
+        <label for="task_{{ task.id }}"></label>
+      </div>
+      <a name="task_{{ task.id }}" href="{{ task.get_absolute_url }}">
+        {{ task.title }} -- {{ task.category }}</a>
+      <br>
+      <span class="task-deadline">{{ task.deadline|date:"d M"|lower }}</span>
+    </div>
+  </li>
   {% endfor %}
 </ul>
 
 {% include "includes/paginator.html" %}
 
 {% endblock content %}
-
