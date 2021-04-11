@@ -77,7 +77,7 @@ class DeleteTask(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('index')
 
 
-class AddComment(View):
+class AddComment(LoginRequiredMixin, View):
     def post(self, request, owner, pk):
         form = CommentForm(request.POST)
         task = get_object_or_404(Task, id=pk)
