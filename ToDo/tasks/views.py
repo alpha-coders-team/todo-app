@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import Http404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 
-from .forms import TaskForm
+from .forms import TaskForm, CommentForm
 from .models import Category, Task
 
 
@@ -73,3 +75,15 @@ class UpdateTask(LoginRequiredMixin, UpdateView):
 class DeleteTask(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('index')
+
+
+class AddComment(View):
+    def post(self, request, owner, pk):
+        form = CommentForm(request.POST)
+        task = get_object_or_404(Task, id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.task = task
+            form.author = request.user
+            form.save()
+        return redirect('view-task', owner, pk)

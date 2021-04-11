@@ -23,6 +23,27 @@
           <input type="submit" value="Удалить">
         </form>
       </div>
+
+    </div>
+    {% for item in task.comments.all %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <p>{{ item.text | linebreaksbr }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="card my-4">
+      <form action="{% url 'add_comment' task.owner task.pk %}" method="post">
+        {% csrf_token %}
+        <div class="form-group editContent">
+            <textarea name="text" id="" cols="60" rows="5">
+
+            </textarea>
+        </div>
+        <input type="submit" value="Добавить комментарий">
+      </form>
     </div>
   </div>
+
 {% endblock %}
