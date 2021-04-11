@@ -140,6 +140,6 @@ cython_debug/
 
 # IDE Files
 .idea
-
+.vscode
 #Build
 kubeconfig
