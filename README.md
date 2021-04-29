@@ -129,3 +129,4 @@ To connect to your database from outside the cluster execute the following comma
 - [LeushElena](https://github.com/LeushElena)
 - [Angelina](https://github.com/myagkova)
 - [Kirill Beliakov](https://github.com/blkvk)
+- [Oleg Avilov](https://github.com/dangerousmonk)
