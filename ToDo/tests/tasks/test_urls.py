@@ -75,7 +75,7 @@ class TaskURLTests(TestCase):
             (PASSWORD_CHANGE_DONE, self.authorized_client_author, 200),
         )
         for url, client, status_code in url_list:
-            with self.subTest():
+            with self.subTest(value=url):
                 self.assertEqual(
                     client.get(url).status_code, status_code)
 
@@ -103,7 +103,7 @@ class TaskURLTests(TestCase):
              'registration/password_change_done.html'),
         )
         for url, client, template in url_list:
-            with self.subTest():
+            with self.subTest(value=url):
                 self.assertTemplateUsed(client.get(url), template)
 
     def test_urls_correct_redirect(self):
@@ -121,5 +121,5 @@ class TaskURLTests(TestCase):
             (self.ADD_COMMENT, self.guest_client, self.ADD_COMMENT_REDIRECT),
         )
         for reverse_name, client, redirect in url_list:
-            with self.subTest():
+            with self.subTest(value=reverse_name):
                 self.assertRedirects(client.get(reverse_name), redirect)
